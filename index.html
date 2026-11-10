@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Денис Коструба: Telegram-боты, лендинги, автоворонки, инфографика для маркетплейсов.">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Денис Коструба</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: two-column hero (о себе + живой мок бота), дальше узкая колонка услуг, опыт, этапы, контакты */
+:root{
+  --bg:#f3f5f7; --surface:#ffffff; --fg:#17212b; --muted:#5b6876; --line:#d9dfe5;
+  --accent:#2a6fdb; --accent-ink:#ffffff; --warm:#e8913a; --bubble:#e7eef8;
+  --display:"Unbounded","Manrope",system-ui,sans-serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#10161d; --surface:#18212b; --fg:#e6ebf0; --muted:#97a4b2; --line:#2a3542;
+  --accent:#5b94ee; --accent-ink:#0d1520; --warm:#f0a65a; --bubble:#223146; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10161d; --surface:#18212b; --fg:#e6ebf0; --muted:#97a4b2; --line:#2a3542;
+  --accent:#5b94ee; --accent-ink:#0d1520; --warm:#f0a65a; --bubble:#223146; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body)}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:56px;border-top:1px solid var(--line)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:700}
+h2{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:700;margin-bottom:28px}
+h3{font-size:1.05rem;font-weight:500}
+p{margin:0}
+.label{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center;padding-block:64px 56px}
+.hero>*{min-width:0}
+.hero .lead{font-size:1.15rem;color:var(--muted);max-width:34em;margin-top:18px}
+.hero .lead b{color:var(--fg);font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.tag{font-family:var(--mono);font-size:.8rem;padding:5px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-block;padding:12px 20px;border-radius:8px;font-weight:700;text-decoration:none;border:1px solid var(--accent);font:700 .95rem var(--body);cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:focus-visible,.chip:focus-visible{outline:3px solid var(--warm);outline-offset:2px}
+
+/* phone mock */
+.phone{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 18px 40px -24px rgba(20,40,70,.45)}
+.phone-top{display:flex;align-items:center;gap:10px;padding:4px 6px 12px;border-bottom:1px solid var(--line)}
+.ava{width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:700 .9rem var(--display)}
+.phone-top small{display:block;color:var(--muted);font-size:.75rem;line-height:1.2}
+.chat{display:flex;flex-direction:column;gap:8px;padding:14px 4px;min-height:230px;max-height:300px;overflow-y:auto;font-size:.9rem}
+.msg{max-width:85%;padding:8px 12px;border-radius:14px;line-height:1.4}
+.msg.bot{background:var(--bubble);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.me{background:var(--accent);color:var(--accent-ink);align-self:flex-end;border-bottom-right-radius:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding-top:10px;border-top:1px solid var(--line)}
+.chip{flex:1 1 auto;padding:8px 10px;border-radius:8px;border:1px solid var(--accent);background:transparent;color:var(--accent);font:600 .82rem var(--body);cursor:pointer}
+.chip:hover{background:var(--bubble)}
+.mock-note{font-size:.78rem;color:var(--muted);text-align:center;margin-top:10px}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.svc{background:var(--surface);padding:24px;display:flex;flex-direction:column;gap:10px}
+.svc p{color:var(--muted);font-size:.95rem}
+.svc ul{margin:0;padding-left:18px;font-size:.92rem}
+.svc .status{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.svc .status.new{color:var(--warm)}
+
+/* experience */
+.exp{display:grid;grid-template-columns:200px 1fr;gap:16px 32px}
+.exp>*{min-width:0}
+.exp dt{font-family:var(--mono);font-size:.85rem;color:var(--muted);padding-top:3px}
+.exp dd{margin:0 0 18px}
+.exp dd p{color:var(--muted);margin-top:6px;max-width:60ch}
+.facts{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:8px}
+.facts div{font-size:.95rem}
+.facts b{font-family:var(--display);font-weight:500;display:block;font-size:1.05rem}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s;list-style:none;margin:0;padding:0}
+.steps li{counter-increment:s;padding-top:14px;border-top:2px solid var(--accent)}
+.steps li::before{content:"Шаг " counter(s);display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.steps p{color:var(--muted);font-size:.92rem;margin-top:6px}
+
+/* contacts */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.contact>*{min-width:0}
+.rows{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.row span{font-family:var(--mono);font-size:.92rem;user-select:all;overflow-wrap:anywhere}
+.row small{display:block;font-family:var(--body);color:var(--muted);font-size:.75rem;user-select:none}
+.copy{border:0;background:none;color:var(--accent);font:600 .85rem var(--body);cursor:pointer;white-space:nowrap}
+footer{padding-block:28px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;gap:32px;padding-block:40px}
+  .exp{grid-template-columns:1fr;gap:4px}
+  .exp dd{margin-bottom:18px}
+  .steps{grid-template-columns:1fr 1fr}
+  .contact{grid-template-columns:1fr}
+}
+@media (max-width:420px){.steps{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.msg{animation:pop .25s ease-out}@keyframes pop{from{transform:translateY(4px);opacity:.4}to{transform:none;opacity:1}}}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <p class="label">Коструба Денис Леонидович</p>
+      <h1 style="margin-top:14px">Делаю ботов, лендинги и&nbsp;автоворонки для малого бизнеса</h1>
+      <p class="lead">Последнее место работы — <b>ведущий специалист отдела технической поддержки Управления информационных технологий</b>. Знаю технику изнутри, поэтому делаю так, чтобы работало без сбоев, и остаюсь на связи после запуска.</p>
+      <div class="tags">
+        <span class="tag">Telegram-боты</span><span class="tag">Лендинги</span><span class="tag">Автоворонки</span><span class="tag">Инфографика</span><span class="tag">Маркетплейсы</span>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="#contacts">Обсудить задачу</a>
+        <a class="btn ghost" href="#services">Что я делаю</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="phone" aria-label="Пример бота">
+        <div class="phone-top"><div class="ava">Б</div><div><b>Бот магазина</b><small>пример · нажмите кнопки</small></div></div>
+        <div class="chat" id="chat" aria-live="polite"></div>
+        <div class="chips" id="chips"></div>
+      </div>
+      <p class="mock-note">Так может выглядеть бот для вашего бизнеса</p>
+    </div>
+  </header>
+
+  <section id="services">
+    <p class="label">Услуги</p>
+    <h2 style="margin-top:8px">Чем могу помочь</h2>
+    <div class="services">
+      <article class="svc">
+        <span class="status">Основное</span>
+        <h3>Telegram-боты</h3>
+        <p>Бот принимает заявки и заказы круглосуточно, а вам приходит уведомление.</p>
+        <ul><li>каталог, корзина, оформление заказа</li><li>запись на услуги</li><li>ответы на частые вопросы, в том числе с ИИ</li><li>настройка сервера и передача бота вам</li></ul>
+      </article>
+      <article class="svc">
+        <span class="status">Основное</span>
+        <h3>Лендинги</h3>
+        <p>Одностраничный сайт под одну услугу или товар, который приводит к заявке.</p>
+        <ul><li>текст, структура, дизайн</li><li>адаптация под телефон</li><li>форма заявки, связка с ботом</li><li>помощь с доменом и хостингом</li></ul>
+      </article>
+      <article class="svc">
+        <span class="status">Основное</span>
+        <h3>Автоворонки</h3>
+        <p>Цепочка, которая ведёт человека от рекламы до покупки без вашего участия.</p>
+        <ul><li>лендинг + бот + серия сообщений</li><li>подарок за подписку, напоминания</li><li>сбор контактов в таблицу</li></ul>
+      </article>
+      <article class="svc">
+        <span class="status">Основное</span>
+        <h3>Инфографика</h3>
+        <p>Карточки товаров для Wildberries и Ozon, которые объясняют товар с первого взгляда.</p>
+        <ul><li>главное фото и слайды</li><li>преимущества, размеры, состав</li><li>под требования площадки</li></ul>
+      </article>
+      <article class="svc">
+        <span class="status new">Беру первые проекты</span>
+        <h3>Менеджер маркетплейса</h3>
+        <p>Осваиваю направление. Возьму магазин на ведение по сниженной цене в обмен на отзыв.</p>
+        <ul><li>заполнение и обновление карточек</li><li>остатки, цены, ответы на отзывы</li><li>еженедельный отчёт</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">Опыт</p>
+    <h2 style="margin-top:8px">Откуда я пришёл</h2>
+    <dl class="exp">
+      <dt>Последнее место</dt>
+      <dd><h3>Ведущий специалист отдела технической поддержки</h3>
+        <p>Управление информационных технологий. Решал проблемы пользователей, настраивал компьютеры, сети и программы, объяснял сложное простыми словами.</p></dd>
+      <dt>Ранее</dt>
+      <dd><h3>Системный администратор</h3>
+        <p>Обслуживание ПК, локальных сетей и операционных систем, работа с оптоволокном.</p></dd>
+      <dt>Что это даёт вам</dt>
+      <dd><div class="facts">
+        <div><b>Надёжность</b>сам настраиваю сервер и слежу за работой</div>
+        <div><b>Понятность</b>без жаргона, всё объясню</div>
+        <div><b>Поддержка</b>не пропадаю после сдачи</div>
+      </div></dd>
+    </dl>
+  </section>
+
+  <section>
+    <p class="label">Как работаем</p>
+    <h2 style="margin-top:8px">От заявки до запуска</h2>
+    <ol class="steps">
+      <li><h3>Знакомство</h3><p>Рассказываете о бизнесе и задаче. Созвон или переписка, бесплатно.</p></li>
+      <li><h3>Предложение</h3><p>Описываю, что сделаю, сроки и цену. Без скрытых доплат.</p></li>
+      <li><h3>Работа</h3><p>Показываю промежуточный результат, вношу правки.</p></li>
+      <li><h3>Запуск</h3><p>Передаю доступы, объясняю, как пользоваться, и помогаю дальше.</p></li>
+    </ol>
+  </section>
+
+  <section id="contacts">
+    <div class="contact">
+      <div>
+        <p class="label">Контакты</p>
+        <h2 style="margin-top:8px">Напишите, обсудим вашу задачу</h2>
+        <p style="color:var(--muted);max-width:40ch">Отвечаю в течение дня. Первая консультация бесплатно.</p>
+      </div>
+      <div class="rows">
+        <div class="row"><span><small>Telegram</small>@DenisKos2025</span><button class="copy" type="button">Копировать</button></div>
+        <div class="row"><span><small>Телефон</small>+7 (959) 151-68-22</span><button class="copy" type="button">Копировать</button></div>
+        <div class="row"><span><small>Почта</small>starek5@mail.ru</span><button class="copy" type="button">Копировать</button></div>
+        <a class="btn primary" href="https://t.me/DenisKos2025" target="_blank" rel="noopener" style="text-align:center">Написать в Telegram</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 Денис Коструба · боты, лендинги, автоворонки, инфографика</footer>
+</div>
+
+<script>
+(function(){
+  var chat=document.getElementById('chat'), chips=document.getElementById('chips');
+  var flow={
+    start:{text:'Здравствуйте! Я бот магазина. Чем помочь?',opts:[['Каталог','cat'],['Доставка','del'],['Связаться','call']]},
+    cat:{text:'Популярное сегодня:\n• Кофе зерновой 1 кг — 1 290 ₽\n• Чай улун 100 г — 450 ₽',opts:[['В корзину кофе','cart'],['Назад','start']]},
+    cart:{text:'Добавил кофе в корзину. Оформить заказ?',opts:[['Оформить','done'],['Назад','start']]},
+    done:{text:'Заказ №1024 принят! Владелец уже получил уведомление и свяжется с вами.',opts:[['В начало','start']]},
+    del:{text:'Доставляем по городу за 1 день, бесплатно от 2 000 ₽.',opts:[['Каталог','cat'],['Назад','start']]},
+    call:{text:'Оставьте номер, менеджер перезвонит в течение 15 минут.',opts:[['В начало','start']]}
+  };
+  function add(t,who){var d=document.createElement('div');d.className='msg '+who;d.textContent=t;d.style.whiteSpace='pre-line';chat.appendChild(d);chat.scrollTop=chat.scrollHeight;}
+  function show(k){var s=flow[k];add(s.text,'bot');chips.innerHTML='';
+    s.opts.forEach(function(o){var b=document.createElement('button');b.type='button';b.className='chip';b.textContent=o[0];
+      b.onclick=function(){add(o[0],'me');setTimeout(function(){show(o[1]);},350);};chips.appendChild(b);});}
+  show('start');
+
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var span=btn.previousElementSibling, val=span.lastChild.textContent.trim();
+      function ok(){btn.textContent='Скопировано';setTimeout(function(){btn.textContent='Копировать';},1500);}
+      function sel(){var r=document.createRange();r.selectNodeContents(span.lastChild);var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Выделено';}
+      try{navigator.clipboard.writeText(val).then(ok,sel);}catch(e){sel();}
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
